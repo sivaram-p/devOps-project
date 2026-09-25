@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
 import Navbar from '../components/Navbar';
 
-export default function RegisterScreen({ onNavigate }) {
+export default function RegisterScreen() {
+  const navigate = useNavigate();
   const { register, authError, setAuthError } = useAuth();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -34,7 +36,7 @@ export default function RegisterScreen({ onNavigate }) {
 
   return (
     <>
-      <Navbar mode="auth" activeTab="register" onTabChange={onNavigate} />
+      <Navbar mode="auth" activeTab="register" onTabChange={(tab) => navigate(`/${tab}`)} />
 
       <div className="auth-page oil-canvas-bg">
         {/* Left panel — desktop only */}
@@ -199,7 +201,7 @@ export default function RegisterScreen({ onNavigate }) {
 
             <div className="auth-card-footer">
               Already have an account?
-              <button type="button" className="text-link" onClick={() => onNavigate('login')}>
+              <button type="button" className="text-link" onClick={() => navigate('/login')}>
                 Sign in
               </button>
             </div>
